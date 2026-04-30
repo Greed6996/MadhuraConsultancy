@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, animate } from "framer-motion";
+import { motion, useScroll, useTransform, animate, AnimatePresence } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { LampContainer } from "@/components/ui/lamp";
+import { RainingLettersBg } from "@/components/ui/raining-letters-bg";
 import {
   MonitorPlay,
   BrainCircuit,
@@ -49,6 +50,8 @@ function StatCounter({ value, text }: { value: number; text: string }) {
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +60,25 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (loading) {
+      const duration = 800;
+      const intervalTime = 20;
+      const steps = duration / intervalTime;
+      let step = 0;
+      
+      const interval = setInterval(() => {
+        step++;
+        setProgress(Math.min(100, Math.floor((step / steps) * 100)));
+        if (step >= steps) {
+          clearInterval(interval);
+          setTimeout(() => setLoading(false), 200);
+        }
+      }, intervalTime);
+      return () => clearInterval(interval);
+    }
+  }, [loading]);
 
   const typewriterWords = [
     { text: "We" },
@@ -87,19 +109,72 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-brand-navy">
+      <AnimatePresence>
+        {loading && (
+          <>
+            <motion.div
+              key="bg"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
+              className="fixed inset-0 z-[90] bg-brand-navy pointer-events-none"
+            />
+            <motion.div
+              key="content"
+              className="fixed inset-0 z-[100] flex flex-col items-center justify-center pointer-events-none"
+            >
+              <motion.div
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="text-gray-400 text-lg mb-2"
+              >
+                Welcome to
+              </motion.div>
+              
+              <motion.div 
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-3 mb-8 pointer-events-auto"
+              >
+                <motion.div 
+                  className="w-12 h-12 rounded-lg transform rotate-45 bg-gradient-to-tr from-brand-amber to-yellow-300 flex items-center justify-center"
+                >
+                  <div className="w-6 h-6 bg-brand-navy rounded-sm transform -rotate-45" />
+                </motion.div>
+                <motion.span 
+                  className="font-heading font-bold text-5xl md:text-6xl tracking-tight text-white inline-block origin-center"
+                >
+                  Madhura<span className="text-brand-amber">.</span>
+                </motion.span>
+              </motion.div>
+
+              <motion.div 
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                className="w-64 h-1 bg-white/10 rounded-full overflow-hidden"
+              >
+                <motion.div 
+                  className="h-full bg-brand-amber"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.1 }}
+                />
+              </motion.div>
+              <motion.div 
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mt-2 text-brand-amber text-sm font-medium"
+              >
+                {progress}%
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       {/* Dynamic Backgrounds */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <SparklesCore
-          id="tsparticlesfullpage"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={50}
-          className="w-full h-full opacity-30"
-          particleColor="#F5A623"
-          speed={0.5}
-        />
-        <DottedSurface className="opacity-10" />
+        <RainingLettersBg />
       </div>
 
       {/* NAVBAR */}
@@ -112,10 +187,14 @@ export default function Home() {
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded transform rotate-45 bg-gradient-to-tr from-brand-amber to-yellow-300 flex items-center justify-center transition-transform duration-300 group-hover:rotate-90">
+            <div 
+              className="w-8 h-8 rounded transform rotate-45 bg-gradient-to-tr from-brand-amber to-yellow-300 flex items-center justify-center transition-transform duration-300 group-hover:rotate-90"
+            >
               <div className="w-4 h-4 bg-brand-navy rounded-sm transform -rotate-45" />
             </div>
-            <span className="font-heading font-bold text-xl tracking-tight text-white">
+            <span 
+              className="font-heading font-bold text-xl tracking-tight text-white inline-block origin-center"
+            >
               Madhura<span className="text-brand-amber">.</span>
             </span>
           </Link>
@@ -168,8 +247,9 @@ export default function Home() {
       </nav>
 
       {/* HERO SECTION */}
-      <section id="home" className="relative z-10 w-full min-h-[100svh]">
+      <section id="home" className="relative z-10 w-full min-h-[100svh] flex flex-col justify-center">
         <LampContainer>
+
           <motion.div
             initial={{ opacity: 0, y: 20, boxShadow: "0px 0px 0px rgba(245,166,35,0)" }}
             animate={{ opacity: 1, y: 0, boxShadow: "0px 0px 40px rgba(245,166,35,0.3)" }}

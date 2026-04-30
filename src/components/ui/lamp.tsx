@@ -2,7 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { SparklesCore } from "@/components/ui/sparkles";
 
 export const LampContainer = ({
   children,
@@ -14,26 +13,14 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-brand-navy w-full rounded-md z-0",
+        "relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-transparent w-full rounded-md z-0",
         className
       )}
     >
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <SparklesCore
-          id="lampsparkles"
-          background="transparent"
-          minSize={0.6}
-          maxSize={1.4}
-          particleDensity={50}
-          className="w-full h-full opacity-50"
-          particleColor="#F5A623"
-          speed={0.5}
-        />
-      </div>
-      <div className="relative flex w-full flex-1 scale-75 scale-y-100 md:scale-100 md:scale-y-125 items-center justify-center isolate z-0 translate-y-32 md:translate-y-24">
+      <div className="relative flex w-full flex-1 scale-y-100 md:scale-y-125 items-center justify-center isolate z-0 translate-y-32 md:translate-y-24">
         <motion.div
-          initial={{ opacity: 0.5, width: "15rem" }}
-          whileInView={{ opacity: 1, width: "30rem" }}
+          initial={{ opacity: 0.5, scaleX: 0.5 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
           transition={{
             delay: 0.3,
             duration: 0.8,
@@ -41,15 +28,15 @@ export const LampContainer = ({
           }}
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
+            WebkitMaskImage: `linear-gradient(to bottom, black 10%, transparent 100%)`,
+            maskImage: `linear-gradient(to bottom, black 10%, transparent 100%)`,
           }}
-          className="absolute inset-auto right-1/2 h-56 overflow-visible w-[30rem] bg-gradient-conic from-brand-amber via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top]"
+          className="absolute inset-auto right-1/2 h-56 overflow-visible w-[14rem] md:w-[30rem] origin-right bg-gradient-conic from-brand-amber via-transparent to-transparent text-white [--conic-position:from_70deg_at_center_top]"
         >
-          <div className="absolute  w-[100%] left-0 bg-brand-navy h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
-          <div className="absolute  w-40 h-[100%] left-0 bg-brand-navy  bottom-0 z-20 [mask-image:linear-gradient(to_right,white,transparent)]" />
         </motion.div>
         <motion.div
-          initial={{ opacity: 0.5, width: "15rem" }}
-          whileInView={{ opacity: 1, width: "30rem" }}
+          initial={{ opacity: 0.5, scaleX: 0.5 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
           transition={{
             delay: 0.3,
             duration: 0.8,
@@ -57,40 +44,46 @@ export const LampContainer = ({
           }}
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
+            WebkitMaskImage: `linear-gradient(to bottom, black 10%, transparent 100%)`,
+            maskImage: `linear-gradient(to bottom, black 10%, transparent 100%)`,
           }}
-          className="absolute inset-auto left-1/2 h-56 w-[30rem] bg-gradient-conic from-transparent via-transparent to-brand-amber text-white [--conic-position:from_290deg_at_center_top]"
+          className="absolute inset-auto left-1/2 h-56 w-[14rem] md:w-[30rem] origin-left bg-gradient-conic from-transparent via-transparent to-brand-amber text-white [--conic-position:from_290deg_at_center_top]"
         >
-          <div className="absolute  w-40 h-[100%] right-0 bg-brand-navy  bottom-0 z-20 [mask-image:linear-gradient(to_left,white,transparent)]" />
-          <div className="absolute  w-[100%] right-0 bg-brand-navy h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
         </motion.div>
-        <div className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-brand-navy blur-2xl"></div>
         <div className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
-        <div className="absolute inset-auto z-50 h-36 w-[28rem] -translate-y-1/2 rounded-full bg-brand-amber opacity-30 blur-3xl"></div>
+        <div className="absolute inset-0 z-50 w-full h-full pointer-events-none" style={{ clipPath: "inset(calc(50% - 7rem) 0 0 0)" }}>
+          <div className="absolute top-1/2 left-1/2 z-50 h-36 w-[14rem] md:w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-amber opacity-30 blur-3xl"></div>
+          <motion.div
+            initial={{ scaleX: 0.5 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{
+              delay: 0.3,
+              duration: 0.8,
+              ease: "easeInOut",
+            }}
+            className="absolute top-1/2 left-1/2 z-30 h-36 w-[10rem] md:w-[16rem] -translate-x-1/2 -translate-y-[6rem] rounded-full bg-yellow-400 opacity-50 blur-2xl origin-center"
+          ></motion.div>
+        </div>
         <motion.div
-          initial={{ width: "8rem" }}
-          whileInView={{ width: "16rem" }}
+          initial={{ scaleX: 0.5 }}
+          whileInView={{ scaleX: 1 }}
           transition={{
             delay: 0.3,
             duration: 0.8,
             ease: "easeInOut",
           }}
-          className="absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full bg-yellow-400 opacity-50 blur-2xl"
-        ></motion.div>
-        <motion.div
-          initial={{ width: "15rem" }}
-          whileInView={{ width: "30rem" }}
-          transition={{
-            delay: 0.3,
-            duration: 0.8,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] bg-yellow-300 opacity-70"
-        ></motion.div>
+          className="absolute inset-auto z-50 h-0.5 w-[14rem] md:w-[30rem] origin-center -translate-y-[7rem] bg-yellow-300 opacity-70"
+        >
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-full flex justify-center origin-bottom">
+            <h1 className="font-heading font-bold text-4xl md:text-6xl text-white/90 tracking-widest uppercase">
+              Welcome
+            </h1>
+          </div>
+        </motion.div>
 
-        <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-brand-navy "></div>
       </div>
 
-      <div className="relative z-50 flex -translate-y-80 flex-col items-center px-5">
+      <div className="relative z-50 flex -translate-y-48 md:-translate-y-56 lg:-translate-y-64 flex-col items-center px-5 w-full">
         {children}
       </div>
     </div>

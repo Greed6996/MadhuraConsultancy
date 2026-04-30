@@ -148,16 +148,16 @@ export const TypewriterEffectSmooth = ({
           width: "fit-content",
         }}
         transition={{
-          duration: 2,
-          ease: "linear",
+          duration: 3,
+          ease: "easeInOut",
           delay: 1,
           repeat: Infinity,
           repeatType: "reverse",
-          repeatDelay: 2,
+          repeatDelay: 2.5,
         }}
       >
         <div
-          className="text-xs sm:text-base md:text-xl lg:text-3xl xl:text-5xl font-bold"
+          className="text-sm sm:text-base md:text-xl lg:text-3xl xl:text-5xl font-bold"
           style={{
             whiteSpace: "nowrap",
           }}
