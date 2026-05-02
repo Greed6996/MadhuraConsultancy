@@ -74,11 +74,6 @@ export const LampContainer = ({
           }}
           className="absolute inset-auto z-50 h-0.5 w-[14rem] md:w-[30rem] origin-center -translate-y-[7rem] bg-yellow-300 opacity-70"
         >
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-full flex justify-center origin-bottom">
-            <h1 className="font-heading font-bold text-4xl md:text-6xl text-white/90 tracking-widest uppercase">
-              Welcome
-            </h1>
-          </div>
         </motion.div>
 
       </div>

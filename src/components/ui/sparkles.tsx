@@ -1,5 +1,5 @@
 "use client";
-import React, { useId } from "react";
+import React, { useId, useMemo } from "react";
 import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, SingleOrMultiple } from "@tsparticles/engine";
@@ -61,7 +61,7 @@ export const SparklesCore = (props: ParticlesProps) => {
           options={{
             background: {
               color: {
-                value: background || "transparent",
+                value: background || "#0d47a1",
               },
             },
             fullScreen: {
@@ -271,7 +271,6 @@ export const SparklesCore = (props: ParticlesProps) => {
                 value: {
                   min: minSize || 1,
                   max: maxSize || 3,
-                  //@ts-ignore
                 },
                 animation: {
                   count: 0,

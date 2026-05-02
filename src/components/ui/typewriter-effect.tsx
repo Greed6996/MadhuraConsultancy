@@ -148,12 +148,12 @@ export const TypewriterEffectSmooth = ({
           width: "fit-content",
         }}
         transition={{
-          duration: 3,
+          duration: 5,
           ease: "easeInOut",
           delay: 1,
           repeat: Infinity,
           repeatType: "reverse",
-          repeatDelay: 2.5,
+          repeatDelay: 3,
         }}
       >
         <div
