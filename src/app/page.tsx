@@ -8,6 +8,8 @@ import { DottedSurface } from "@/components/ui/dotted-surface";
 
 import { RainingLettersBg } from "@/components/ui/raining-letters-bg";
 import { Globe } from "@/components/ui/globe";
+import ElectricBorder from "@/components/ui/electric-border";
+import SplashCursor from "@/components/ui/splash-cursor";
 import {
   MonitorPlay,
   BrainCircuit,
@@ -110,6 +112,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-brand-navy">
+      <SplashCursor CURL={3} RAINBOW_MODE={false} COLOR="#f5a623" />
       <AnimatePresence>
         {loading && (
           <>
@@ -424,10 +427,20 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-tr from-[#151D2C] to-brand-navy border border-white/10 flex items-center justify-center"
+              className="w-full"
             >
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-amber via-transparent to-transparent" />
-              <Globe className="w-[120%] h-[120%] md:w-full md:h-full" />
+              <ElectricBorder
+                color="#f5a623"
+                speed={2}
+                chaos={0.2}
+                borderRadius={24}
+                className="relative aspect-square md:aspect-[4/3] w-full"
+              >
+                <div className="relative rounded-[24px] overflow-hidden bg-gradient-to-tr from-[#151D2C] to-brand-navy border border-white/10 flex items-center justify-center w-full h-full">
+                  <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-amber via-transparent to-transparent" />
+                  <Globe className="w-[120%] h-[120%] md:w-full md:h-full" />
+                </div>
+              </ElectricBorder>
             </motion.div>
           </div>
         </div>
@@ -451,21 +464,31 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="p-8 rounded-2xl bg-[#151D2C]/50 border border-white/5 relative overflow-hidden"
+                className="h-full"
               >
-                {/* Skeleton UI */}
-                <div className="animate-pulse flex space-x-4 mb-6">
-                  <div className="rounded-full bg-white/5 h-12 w-12"></div>
-                  <div className="flex-1 space-y-3 py-1">
-                    <div className="h-2 bg-white/5 rounded w-3/4"></div>
-                    <div className="h-2 bg-white/5 rounded w-1/2"></div>
+                <ElectricBorder
+                  color="#f5a623"
+                  speed={1}
+                  chaos={0.15}
+                  borderRadius={16}
+                  className="h-full"
+                >
+                  <div className="p-8 rounded-2xl bg-[#151D2C]/50 border border-white/5 relative overflow-hidden h-full">
+                    {/* Skeleton UI */}
+                    <div className="animate-pulse flex space-x-4 mb-6">
+                      <div className="rounded-full bg-white/5 h-12 w-12"></div>
+                      <div className="flex-1 space-y-3 py-1">
+                        <div className="h-2 bg-white/5 rounded w-3/4"></div>
+                        <div className="h-2 bg-white/5 rounded w-1/2"></div>
+                      </div>
+                    </div>
+                    <div className="animate-pulse space-y-3">
+                      <div className="h-2 bg-white/5 rounded"></div>
+                      <div className="h-2 bg-white/5 rounded"></div>
+                      <div className="h-2 bg-white/5 rounded w-5/6"></div>
+                    </div>
                   </div>
-                </div>
-                <div className="animate-pulse space-y-3">
-                  <div className="h-2 bg-white/5 rounded"></div>
-                  <div className="h-2 bg-white/5 rounded"></div>
-                  <div className="h-2 bg-white/5 rounded w-5/6"></div>
-                </div>
+                </ElectricBorder>
               </motion.div>
             ))}
           </div>
